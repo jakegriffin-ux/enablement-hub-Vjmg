@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Omni Enablement Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0C10;
+  --ink-soft:#5B5D66;
+  --paper:#F5F5F2;
+  --card:#FFFFFF;
+  --line:#E1E0DA;
+  --signal:#4F7FF2;
+  --signal-tint:#E9EFFE;
+  --flag:#FF672E;
+  --flag-tint:#FFE7DC;
+  --radius:10px;
+  --maxw:1180px;
+}
+html{scroll-behavior:smooth}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Instrument Sans',system-ui,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2.5px solid var(--signal);outline-offset:2px;border-radius:3px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+
+
+/* header */
+header.top{background:var(--signal);color:#fff;padding:18px 0;position:sticky;top:0;z-index:50}
+header.top .wrap{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.brand{font-family:'Instrument Sans',sans-serif;font-weight:800;font-size:24px;letter-spacing:-.02em;white-space:nowrap;display:flex;align-items:center;gap:11px;color:#fff}
+.brand .mark{letter-spacing:-.03em;font-weight:800;display:inline-flex;align-items:center;gap:7px}
+.brand .mark .sparkle{display:inline-block;width:19px;height:19px}
+.brand .sub{color:#fff;font-weight:700;font-size:21px}
+.searchbox{flex:1;min-width:220px;position:relative}
+.searchbox input{width:100%;padding:11px 14px 11px 38px;border-radius:var(--radius);border:1px solid rgba(255,255,255,.35);background:rgba(11,12,16,.22);color:#fff;font:inherit;transition:border-color .15s}
+.searchbox input:focus{border-color:#fff;outline:none}
+.searchbox input::placeholder{color:rgba(255,255,255,.75)}
+.searchbox svg{position:absolute;left:13px;top:12px;opacity:.85}
+.kbd{position:absolute;right:12px;top:11px;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:11px;color:#fff;border:1px solid rgba(255,255,255,.45);border-radius:4px;padding:1px 6px}
+.headactions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.hbtn{display:inline-flex;align-items:center;gap:6px;font-family:'Instrument Sans',sans-serif;font-size:12.5px;font-weight:700;line-height:1;white-space:nowrap;padding:9px 13px;border-radius:20px;cursor:pointer;text-decoration:none;transition:.15s;border:1px solid rgba(255,255,255,.45);background:transparent;color:#fff}
+.hbtn:hover{background:rgba(255,255,255,.16);border-color:#fff}
+.hbtn svg{flex:none;opacity:.95}
+.hbtn.solid{background:#fff;border-color:#fff;color:var(--signal)}
+.hbtn.solid:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.hbtn.done{background:var(--ink);border-color:var(--ink);color:#fff}
+@media(max-width:760px){.headactions{width:100%}.hbtn{flex:1;justify-content:center}}
+
+/* hero */
+.hero{padding:26px 0 0;position:relative}
+.hero h1{font-family:'Instrument Sans',sans-serif;font-weight:700;font-size:clamp(30px,4.6vw,46px);line-height:1.05;letter-spacing:-.03em;margin:0;max-width:22ch}
+.hero p.sub{max-width:56ch;color:var(--ink-soft);margin:0 0 6px}
+.hero h1{position:relative;z-index:1}
+.hero-motif{position:absolute;top:0;right:0;width:220px;height:220px;pointer-events:none;z-index:0}
+.hero-motif .rays{
+  position:absolute;inset:0;border-radius:50%;
+  background:repeating-conic-gradient(from -1.5deg, var(--flag) 0deg 3deg, transparent 3deg 9deg);
+  -webkit-mask:radial-gradient(circle, transparent 44%, black 45%);
+  mask:radial-gradient(circle, transparent 44%, black 45%);
+  opacity:.85;
+}
+@media(max-width:900px){.hero-motif{width:160px;height:160px;top:2px;right:0;opacity:.7}}
+@media(max-width:640px){.hero-motif{display:none}}
+
+/* browse panel */
+.lenspanel{padding:20px 0 4px}
+.btn-action{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:10px 18px;font-weight:600;font-size:14px;transition:.15s}
+.btn-action:hover{border-color:var(--signal)}
+
+/* console tiles */
+.consoles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:900px){.consoles{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.consoles{grid-template-columns:1fr}}
+.console{
+  text-align:left;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:15px 16px 16px;transition:.15s;border-left:4px solid var(--ck,var(--line));position:relative;
+}
+.console:hover{border-color:var(--line);border-left-color:var(--ck);transform:translateY(-2px);box-shadow:0 4px 14px rgba(19,26,34,.07)}
+.console .cn{display:block;font-family:'Instrument Sans',sans-serif;font-weight:700;font-size:16px;letter-spacing:-.015em}
+.console .cd{display:block;font-size:12.5px;color:var(--ink-soft);line-height:1.4;margin-top:5px}
+.console .cc{display:block;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:11px;color:var(--ink-soft);margin-top:9px}
+.console[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);border-left-color:var(--ck)}
+.console[aria-pressed="true"] .cn{color:#fff}
+.console[aria-pressed="true"] .cd,.console[aria-pressed="true"] .cc{color:#9DACB9}
+
+/* journey rail */
+.rail-shell{margin:10px 0 24px;position:relative;z-index:2}
+.rail-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;gap:12px;flex-wrap:wrap}
+.rail-title{font-family:'Instrument Sans',sans-serif;font-weight:700;font-size:24px;letter-spacing:-.02em;margin:0}
+.rail{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stage{display:flex;flex-direction:column;align-items:center;text-align:center;gap:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 12px 18px;transition:.15s}
+.stage:hover{border-color:var(--ck);transform:translateY(-2px);box-shadow:0 4px 14px rgba(19,26,34,.07)}
+.stage .ic{width:34px;height:34px;color:var(--ck);margin-bottom:12px}
+.stage .ic svg{width:100%;height:100%;display:block}
+.stage .nm{display:block;font-family:'Instrument Sans',sans-serif;font-weight:700;font-size:15px;margin:0 0 3px;letter-spacing:-.01em}
+.stage .ds{display:block;font-size:12.5px;color:var(--ink-soft);line-height:1.4}
+.stage[aria-pressed="true"]{background:var(--signal-tint);border-color:var(--ck);box-shadow:0 0 0 1px var(--ck)}
+
+/* filters */
+.toolbar{display:flex;flex-direction:column;gap:0;align-items:flex-start;margin:0 0 14px}
+.fgroup{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.chip{background:var(--card);border:1px solid var(--line);border-radius:100px;padding:5px 13px;font-size:13px;color:var(--ink-soft);transition:.15s}
+.chip:hover{border-color:var(--signal);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--signal);border-color:var(--signal);color:#fff;font-weight:600}
+.resultbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px;margin-top:6px}
+.active{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--ink-soft)}
+.clear{background:none;border:0;color:var(--signal);font-weight:600;font-size:13px;text-decoration:underline}
+
+/* results section highlight (applied once filtered) */
+.results-shell{border-radius:14px;padding:0 20px;margin:0 -20px;transition:background .2s ease}
+.results-shell.filtered{background:var(--signal-tint);padding:8px 20px 20px;margin:8px -20px 0}
+.results-shell.filtered .resultbar{border-top:0;position:relative;padding:14px 0 14px 16px;margin-top:0}
+.results-shell.filtered .resultbar::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:4px;border-radius:4px;background:var(--signal)}
+.results-shell.filtered .resultbar .active .eyebrow{color:var(--signal);font-size:12px}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin:16px 0 60px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:9px;text-decoration:none;transition:.15s;border-left:4px solid var(--ck,var(--line))}
+.card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(19,26,34,.07)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;transform:none!important}}
+.card .type{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.typeleft{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.duration{font-size:12px;color:var(--ink-soft);font-weight:600;white-space:nowrap}
+.pill{font-family:'Instrument Sans',sans-serif;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--signal-tint);color:var(--signal);padding:3px 8px;border-radius:4px;font-weight:600}
+.pill.ext{background:#E7EBEF;color:var(--ink-soft)}
+.card h3{font-family:'Instrument Sans',sans-serif;font-size:17px;font-weight:700;margin:0;letter-spacing:-.015em;line-height:1.25;min-height:2.5em}
+.card p{margin:0;font-size:13.5px;color:var(--ink-soft)}
+.consolebadges{display:flex;gap:6px;flex-wrap:wrap;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase}
+.cb{padding:2px 7px;border-radius:4px;color:#fff}
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:auto;padding-top:2px}
+.tag{font-size:11.5px;color:var(--ink-soft);background:#EFF3F6;padding:2px 8px;border-radius:100px}
+.empty{grid-column:1/-1;background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);padding:44px 24px;text-align:center}
+.empty h3{font-family:'Instrument Sans',sans-serif;margin:0 0 8px;font-size:19px}
+.empty p{margin:0 auto 16px;max-width:44ch;color:var(--ink-soft)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* about enablement */
+.about-shell{scroll-margin-top:90px;margin:56px 0 40px;padding-top:36px;border-top:1px solid var(--line)}
+.ctitle{font-family:'Instrument Sans',sans-serif;font-weight:700;font-size:26px;letter-spacing:-.02em;margin:6px 0 4px}
+.csub{color:var(--ink-soft);margin:0 0 24px;max-width:60ch}
+.about-top{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-bottom:28px}
+.about-panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px}
+.about-panel h3{font-family:'Instrument Sans',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.015em;margin:6px 0 10px}
+.about-panel p{margin:0 0 10px;font-size:14.5px;line-height:1.6}
+.about-panel p:last-child{margin-bottom:0}
+.about-panel ul{margin:0;padding-left:18px;font-size:14.5px;line-height:1.65}
+.about-sub{font-family:'Instrument Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 12px}
+.role-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.role-card{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--ck,var(--line));border-radius:var(--radius);padding:18px 20px}
+.role-card h4{font-family:'Instrument Sans',sans-serif;font-weight:700;font-size:16px;letter-spacing:-.01em;margin:0 0 8px}
+.role-card p{margin:0 0 10px;font-size:14px;line-height:1.55;color:var(--ink)}
+.role-card .role-for{margin:0;font-size:12.5px;color:var(--ink-soft);padding-top:10px;border-top:1px solid var(--line)}
+
+/* floating filter sidebar */
+.page-shell{position:relative}
+.side-motif{position:fixed;left:18px;top:0;width:114px;height:228px;pointer-events:none;z-index:30;opacity:0;transition:opacity .2s;overflow:hidden}
+.side-motif.visible{opacity:1}
+.side-motif .rays{
+  position:absolute;top:0;left:-114px;width:228px;height:228px;border-radius:50%;
+  background:repeating-conic-gradient(from -1.5deg, var(--flag) 0deg 3deg, transparent 3deg 9deg);
+  -webkit-mask:radial-gradient(circle, transparent 44%, black 45%);
+  mask:radial-gradient(circle, transparent 44%, black 45%);
+  opacity:.85;
+}
+@media(max-width:900px){.side-motif{display:none}}
+.filter-sidebar{position:fixed;top:107px;left:24px;width:220px;max-height:calc(100vh - 131px);background:#fff;border-radius:14px;box-shadow:0 10px 32px rgba(11,12,16,.1);border:1px solid var(--line);padding:16px;z-index:40;display:flex;flex-direction:column;gap:12px;overflow-y:auto}
+main.wrap{margin-left:268px;margin-right:auto}
+.fs-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.fs-title{font-family:'Instrument Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:.02em;text-transform:uppercase;color:var(--ink-soft)}
+.fs-count{font-size:12px;font-weight:700;color:var(--signal);white-space:nowrap}
+.fs-body{display:flex;flex-direction:column;gap:10px}
+.fs-empty{font-size:13px;color:var(--ink-soft);line-height:1.4}
+.fs-group{display:flex;flex-direction:column;gap:5px}
+.fs-group-label{font-size:11px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--ink-soft)}
+.fs-chips{display:flex;flex-wrap:wrap;gap:5px}
+.fs-chip{display:inline-flex;align-items:center;gap:5px;background:var(--signal-tint);color:var(--signal);font-size:12px;font-weight:600;padding:4px 9px;border-radius:20px;line-height:1.3}
+.fs-clear-btn{font-size:12.5px;white-space:nowrap}
+.fs-matches{display:flex;flex-direction:column;gap:8px;padding-top:12px;border-top:1px solid var(--line)}
+.fs-matches-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.fs-matches-label{font-size:11px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--ink-soft)}
+.fs-jump{display:inline-flex;align-items:center;gap:4px;background:var(--signal-tint);border:0;color:var(--signal);font-family:'Instrument Sans',sans-serif;font-size:11.5px;font-weight:700;padding:6px 10px;border-radius:20px;cursor:pointer;white-space:nowrap;transition:.15s}
+.fs-jump:hover{background:var(--signal);color:#fff}
+.fs-jump svg{flex:none}
+.fs-match-list{display:flex;flex-direction:column;gap:1px;max-height:280px;overflow-y:auto;margin:0 -6px}
+.fs-match-item{text-align:left;background:none;border:0;padding:5px 6px;font-size:12.5px;line-height:1.35;color:var(--ink);border-radius:6px;cursor:pointer;font-family:inherit}
+.fs-match-item:hover{background:var(--signal-tint);color:var(--signal)}
+@keyframes cardJump{0%,100%{box-shadow:0 4px 14px rgba(19,26,34,.07)}40%{box-shadow:0 0 0 3px var(--signal)}}
+.card.jump-flash{animation:cardJump 1.1s ease-out}
+@media(max-width:900px){
+  .page-shell{display:block}
+  .filter-sidebar{position:static;width:auto;margin:16px;max-height:none}
+  main.wrap{margin-left:auto}
+}
+
+/* ---- Guided tour ---- */
+.tour-scrim{position:fixed;inset:0;z-index:900;display:none;pointer-events:none}
+.tour-scrim.on{display:block}
+.tour-spot{position:fixed;border-radius:12px;box-shadow:0 0 0 9999px rgba(11,12,16,.62);transition:top .28s ease,left .28s ease,width .28s ease,height .28s ease;pointer-events:none}
+.tour-ring{position:fixed;border-radius:12px;border:2.5px solid var(--signal);box-shadow:0 0 0 5px rgba(79,127,242,.28);transition:top .28s ease,left .28s ease,width .28s ease,height .28s ease;pointer-events:none}
+.tour-pop{position:fixed;z-index:920;width:296px;background:#fff;border-radius:14px;padding:16px 16px 13px;box-shadow:0 14px 40px rgba(11,12,16,.28);transition:top .28s ease,left .28s ease;pointer-events:auto}
+.tour-try{display:inline-block;margin-top:9px;font-family:'Instrument Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--signal);background:var(--signal-tint);padding:4px 9px;border-radius:20px}
+.tour-pop::after{content:"";position:absolute;width:14px;height:14px;background:#fff;transform:rotate(45deg)}
+.tour-pop.below::after{top:-7px;left:var(--ax,28px)}
+.tour-pop.above::after{bottom:-7px;left:var(--ax,28px)}
+.tour-pop.rightof::after{left:-7px;top:var(--ay,28px)}
+.tour-pop.leftof::after{right:-7px;top:var(--ay,28px)}
+.tour-step{font-family:'Instrument Sans',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--signal);display:block;margin-bottom:5px}
+.tour-pop h4{font-family:'Instrument Sans',sans-serif;font-size:16px;font-weight:700;margin:0 0 6px;letter-spacing:-.01em;line-height:1.25}
+.tour-pop p{margin:0;font-size:13.5px;line-height:1.5;color:var(--ink-soft)}
+.tour-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding-top:11px;border-top:1px solid var(--line)}
+.tour-dots{display:flex;gap:5px}
+.tour-dot{width:6px;height:6px;border-radius:50%;background:var(--line)}
+.tour-dot.on{background:var(--signal)}
+.tour-btns{display:flex;gap:7px;align-items:center}
+.tour-btns button{font-family:'Instrument Sans',sans-serif;font-size:12.5px;font-weight:700;border-radius:20px;padding:7px 14px;cursor:pointer;transition:.15s;border:1px solid var(--line);background:#fff;color:var(--ink-soft)}
+.tour-btns button:hover{border-color:var(--signal);color:var(--ink)}
+.tour-btns .primary{background:var(--signal);border-color:var(--signal);color:#fff}
+.tour-btns .primary:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.tour-skip{position:absolute;top:12px;right:12px;background:none;border:0;font-size:11px;font-weight:600;color:var(--ink-soft);cursor:pointer;text-decoration:underline;padding:0}
+.tour-skip:hover{color:var(--ink)}
+@media(max-width:640px){.tour-pop{width:calc(100vw - 32px)}}
+
+.chat-launcher{position:fixed;bottom:24px;right:24px;width:64px;height:64px;background:transparent;border:none;padding:0;cursor:pointer;z-index:200;transition:transform .15s}
+.chat-launcher:hover{transform:scale(1.06)}
+.chat-launcher svg{width:100%;height:100%;overflow:visible}
+.chat-launcher .bubble-shape{fill:var(--signal);filter:drop-shadow(0 6px 16px rgba(11,12,16,.3))}
+.chat-launcher .sparkle-rot{transform-box:fill-box;transform-origin:center;transition:transform .25s ease}
+.chat-launcher.open .sparkle-rot{transform:rotate(45deg)}
+
+.chat-panel{position:fixed;bottom:96px;right:24px;width:360px;height:420px;max-height:calc(100vh - 120px);background:#fff;border-radius:16px;box-shadow:0 16px 48px rgba(11,12,16,.28);z-index:199;display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:translateY(16px) scale(.98);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+.chat-panel.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+.chat-head{background:var(--signal);color:#fff;padding:16px 18px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.chat-head .chat-avatar{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chat-head .chat-avatar svg{width:17px;height:17px}
+.chat-head .chat-titles{line-height:1.25}
+.chat-head .chat-titles strong{display:block;font-family:'Instrument Sans',sans-serif;font-weight:700;font-size:14.5px}
+.chat-body{flex:1;overflow-y:auto;padding:18px;background:var(--paper);display:flex;flex-direction:column;gap:12px}
+.chat-bubble{max-width:82%;padding:10px 13px;border-radius:12px;font-size:13.5px;line-height:1.45}
+.chat-bubble.bot{background:#fff;border:1px solid var(--line);border-bottom-left-radius:3px;align-self:flex-start;color:var(--ink)}
+.chat-input-row{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);background:#fff;flex-shrink:0}
+.chat-input-row input{flex:1;border:1px solid var(--line);border-radius:20px;padding:9px 14px;font:inherit;font-size:13.5px;background:var(--paper);color:var(--ink)}
+.chat-input-row input:focus{outline:none;border-color:var(--signal)}
+.chat-input-row button{width:36px;height:36px;border-radius:50%;background:var(--signal);border:none;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;transition:transform .1s}
+.chat-input-row button:hover{transform:scale(1.06)}
+@media(max-width:460px){.chat-panel{width:calc(100vw - 24px);right:12px;bottom:88px}.chat-launcher{right:16px;bottom:16px}}
+
+/* ---- Resource detail modal ---- */
+.card{cursor:pointer}
+.rm-backdrop{position:fixed;inset:0;z-index:950;background:rgba(11,12,16,.55);display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+.rm-backdrop.on{display:flex}
+body.rm-lock{overflow:hidden}
+.rm-panel{position:relative;background:#fff;width:100%;max-width:580px;max-height:calc(100vh - 40px);overflow-y:auto;border-radius:14px;border-top:5px solid var(--ck,var(--line));box-shadow:0 20px 56px rgba(11,12,16,.32);padding:26px 28px 22px;animation:rmIn .16s ease-out}
+@keyframes rmIn{from{opacity:0;transform:translateY(8px) scale(.985)}to{opacity:1;transform:none}}
+.rm-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:0;background:#EFF3F6;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;transition:.15s}
+.rm-close:hover{background:var(--ink);color:#fff}
+.rm-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-right:40px}
+.rm-panel h2{font-family:'Instrument Sans',sans-serif;font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.2;margin:12px 0 8px;padding-right:30px}
+.rm-desc{margin:0 0 18px;font-size:14.5px;line-height:1.6;color:var(--ink-soft)}
+.rm-meta{margin:0;border-top:1px solid var(--line)}
+.rm-row{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.rm-row dt{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.rm-row dd{margin:0;font-size:14px;line-height:1.5}
+.rm-row dd .consolebadges,.rm-row dd .tags{margin:0;padding:0}
+.rm-sub{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+.rm-actions{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-top:20px}
+.rm-btn{font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:700;border-radius:24px;padding:10px 22px;border:1px solid var(--line);background:#fff;color:var(--ink);transition:.15s;display:inline-flex;align-items:center;gap:7px}
+.rm-btn:hover{border-color:var(--signal)}
+.rm-btn.primary{background:var(--signal);border-color:var(--signal);color:#fff}
+.rm-btn.primary:hover{background:var(--ink);border-color:var(--ink)}
+@media(max-width:560px){.rm-panel{padding:22px 18px 18px}.rm-row{grid-template-columns:1fr;gap:3px}.rm-panel h2{font-size:21px}}
+</style>
+<script>
+function toggleChat(){
+  const panel = document.getElementById('chatPanel');
+  const launcher = document.getElementById('chatLauncher');
+  const willOpen = !panel.classList.contains('open');
+  panel.classList.toggle('open', willOpen);
+  launcher.classList.toggle('open', willOpen);
+  launcher.setAttribute('aria-expanded', willOpen);
+}
+function sendChatMessage(){
+  const input = document.getElementById('chatInput');
+  if (!input.value.trim()) return;
+  input.value = "";
+  input.focus();
+}
+</script>
+</head>
+<body>
+
+<!--
+  ============================================================
+  EDIT ONLY THIS BLOCK TO MANAGE THE HUB.
+  Everything below the CONFIG script is plumbing.
+  ============================================================
+-->
+<script>
+const CONFIG = {
+
+  // Real consoles/tools. Each gets a color used on tiles and card spines.
+  consoles: [
+    { id:"research",          name:"Research Console",        color:"#4A90A4", desc:"The Research Console surfaces social, cultural, and brand intelligence through AI-accelerated discovery, analysis, and insight development. It empowers agencies to leverage the value of creativity using tools that can inspire a campaign, differentiate a brand, or drive a media plan." },
+    { id:"audience",          name:"Audience Console",         color:"#0E6E70", desc:"The Audience Console provides a globally consistent audience solution powered by Acxiom and Connections data, local and custom surveys, and partner data and platform integrations to deliver audience creation and insights, targeting, and activation capabilities to more than 140+ markets." },
+    { id:"planning",          name:"Planning Console",         color:"#5E7CE2", desc:"The Planning Console helps agencies create effective strategic and tactical media plans, aligned to their audiences and strategic plans respectively." },
+    { id:"investment",        name:"Investment Console",       color:"#2F9E6E", desc:"The Investment Console streamlines the media buying and partner selection process by reducing the number of manual steps to engage in programmatic buys. You can create and view deals created by the MAGNA Mediabrands Private Marketplace (MPM) team, discover exclusive storefront partners, and manage planned partner spend for the upcoming year using upfront and forecast entries." },
+    { id:"content",           name:"Content Console",          color:"#7A4FA8", desc:"The Content Console combines data, automation, and intelligence to streamline the delivery of personalized ads based on real-time data. It enables users to activate and enable the creation, testing, and optimization of DCO campaigns in one central console." },
+    { id:"production",        name:"Production Console",       color:"#B4581A", desc:"In digital advertising, advertisements are digital files called creatives placed on websites during campaigns. Each client can have thousands of different creatives (or iterations of creatives) for one or many campaigns and tactics, running on one or many websites and pages. Each creative placement resides on an ad server, is then pushed to DSPs, and is ultimately mapped to an associated client, campaign, and tactic." },
+    { id:"activation",        name:"Activation Console",       color:"#C4491E", desc:"The Activation Console allows you to create and work with campaigns. You can establish naming taxonomies, build campaigns, and monitor their performance in real time." },
+    { id:"data management",   name:"Data Management Console",  color:"#8B6F4E", desc:"The Data Management Console provides you with the flexibility to upload data, create custom mappings to group and enhance your data, and export uploaded or mapped data. You can then view this information through at-a-glance Tableau dashboards and reports." },
+    { id:"this-tool",         name:"This Tool",             color:"#8A8880", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit" },
+    { id:"that-tool",         name:"That Tool",             color:"#8A8880", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit" },
+    { id:"other-tool",        name:"The Other Tool",        color:"#8A8880", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit" }
+  ],
+
+  journey: [
+    { id:"onboard", name:"Get started",  desc:"New to Omni",                color:"#4F7FF2" },
+    { id:"learn",   name:"Learn a tool", desc:"Build your skills",          color:"#8A4FE0" },
+    { id:"share",   name:"Share Omni",   desc:"Find presentation materials",color:"#2F9E6E" },
+    { id:"connect", name:"Community",    desc:"Connect and get updates",    color:"#F29B1D" },
+    { id:"support", name:"Get help",     desc:"Access and support",         color:"#D64545" }
+  ],
+
+  types: ["User Guide","Curriculum","Video","Document","Case Study","Other"],
+
+  // ---- CONTENT ----
+  // consoles: array of console ids, or "all"
+  resources: [
+    { title:"Console overviews", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"User Guide", duration:"13 min read", stage:"onboard", consoles:"all", tags:["orientation"], url:"#" },
+    { title:"Data source availability", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"User Guide", duration:"14 min read", stage:"onboard", consoles:"all", tags:["data"], url:"#" },
+    { title:"Platform Operations contact", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Other", stage:"onboard", consoles:"all", tags:["access","support"], url:"#" },
+    { title:"Omni Roles and permissions", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"User Guide", duration:"6 min read", stage:"onboard", consoles:"all", tags:["access","permissions"], url:"#" },
+
+    { title:"Omni platform", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"User Guide", duration:"8 min read", stage:"learn", consoles:"all", tags:["orientation"], url:"#" },
+    { title:"Omni Academy", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"13 min course", stage:"learn", consoles:"all", tags:["academy","learning path"], url:"https://example.com", external:true },
+    { title:"User guides", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"User Guide", duration:"6 min read", stage:"learn", consoles:"all", tags:["how-to"], url:"#" },
+
+    { title:"Marketing resources", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Document", duration:"2 pages · 4 min read", stage:"share", consoles:"all", tags:["marketing"], url:"#" },
+    { title:"Brand assets", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Document", duration:"7 pages · 13 min read", stage:"share", consoles:"all", tags:["brand","marketing"], url:"#" },
+
+    { title:"Community Teams channel", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Other", stage:"connect", consoles:"all", tags:["community"], url:"#" },
+    { title:"Support portal", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Other", stage:"support", consoles:"all", tags:["support","access"], url:"#" },
+
+    { title:"Omni AI User Guide", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"User Guide", duration:"9 min read", stage:"onboard", consoles:"all", tags:["orientation"], url:"#" },
+    { title:"Research Console User Guide", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"User Guide", duration:"11 min read", stage:"learn", consoles:["research"], tags:["user-guide"], url:"#" },
+    { title:"Audience Console User Guide", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"User Guide", duration:"9 min read", stage:"learn", consoles:["audience"], tags:["user-guide"], url:"#" },
+    { title:"Planning Console User Guide", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"User Guide", duration:"6 min read", stage:"learn", consoles:["planning"], tags:["user-guide"], url:"#" },
+    { title:"Investment Console User Guide", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"User Guide", duration:"12 min read", stage:"learn", consoles:["investment"], tags:["user-guide"], url:"#" },
+    { title:"Production Console User Guide", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"User Guide", duration:"11 min read", stage:"learn", consoles:["production"], tags:["user-guide"], url:"#" },
+    { title:"Content Console User Guide", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"User Guide", duration:"13 min read", stage:"learn", consoles:["content"], tags:["user-guide"], url:"#" },
+    { title:"Activation Console User Guide", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"User Guide", duration:"14 min read", stage:"learn", consoles:["activation"], tags:["user-guide"], url:"#" },
+    { title:"Platform Data User Guide", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"User Guide", duration:"13 min read", stage:"learn", consoles:"all", tags:["user-guide"], url:"#" },
+    { title:"Build and Analyze Audiences: User Workflow", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"43 min course", stage:"learn", consoles:["audience"], tags:["curriculum"], url:"#" },
+    { title:"Build Geo Audiences", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"42 min course", stage:"learn", consoles:["audience"], tags:["curriculum"], url:"#" },
+    { title:"Elevate Audience Intelligence", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"32 min course", stage:"learn", consoles:["audience"], tags:["curriculum"], url:"#" },
+    { title:"Planning Console: The Essentials", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"37 min course", stage:"learn", consoles:["planning"], tags:["curriculum","essentials"], url:"#" },
+    { title:"Working with Planning Agent", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"35 min course", stage:"learn", consoles:["planning"], tags:["curriculum"], url:"#" },
+    { title:"Create Media Strategy: For users", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"13 min course", stage:"learn", consoles:["planning"], tags:["curriculum"], url:"#" },
+    { title:"Explore Consumer Conversations: The Essentials", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"24 min course", stage:"learn", consoles:["research"], tags:["curriculum","essentials"], url:"#" },
+    { title:"Generate Brand Research: For users", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"25 min course", stage:"learn", consoles:["research"], tags:["curriculum"], url:"#" },
+    { title:"Explore Cultural Insights", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"20 min course", stage:"learn", consoles:["research"], tags:["curriculum"], url:"#" },
+    { title:"Manage Investments - Manage Upfronts: For Users", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"12 min course", stage:"learn", consoles:["investment"], tags:["curriculum"], url:"#" },
+    { title:"Manage Investments - Manage Forecasts: For Users", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"34 min course", stage:"learn", consoles:["investment"], tags:["curriculum"], url:"#" },
+    { title:"Generate Content: For users", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"25 min course", stage:"learn", consoles:["content"], tags:["curriculum"], url:"#" },
+    { title:"Map Content: For users", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"44 min course", stage:"learn", consoles:["content"], tags:["curriculum"], url:"#" },
+    { title:"Measure Content: For users", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"39 min course", stage:"learn", consoles:["content"], tags:["curriculum"], url:"#" },
+    { title:"Best Practices for Map Content", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"14 min course", stage:"learn", consoles:["content"], tags:["curriculum","best-practices"], url:"#" },
+    { title:"Best Practices for Map Data", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"10 min course", stage:"learn", consoles:["content"], tags:["curriculum","best-practices"], url:"#" },
+    { title:"Production Console: The Essentials", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"15 min course", stage:"learn", consoles:["production"], tags:["curriculum","essentials"], url:"#" },
+    { title:"Build Creatives: For users", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"33 min course", stage:"learn", consoles:["production"], tags:["curriculum"], url:"#" },
+    { title:"Define Taxonomies: The essentials", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"16 min course", stage:"learn", consoles:["activation"], tags:["curriculum","essentials","taxonomy"], url:"#" },
+    { title:"Define Taxonomies: For managers (US Markets)", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"28 min course", stage:"learn", consoles:["activation"], tags:["curriculum","taxonomy"], url:"#" },
+    { title:"Define Taxonomies: For users (US Markets)", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"43 min course", stage:"learn", consoles:["activation"], tags:["curriculum","taxonomy"], url:"#" },
+    { title:"Define Taxonomies: For managers (Non-US Markets)", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"14 min course", stage:"learn", consoles:["activation"], tags:["curriculum","taxonomy"], url:"#" },
+    { title:"Define Taxonomies: For users (Non-US Markets)", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"14 min course", stage:"learn", consoles:["activation"], tags:["curriculum","taxonomy"], url:"#" },
+    { title:"Optimize Bidding: For users", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"40 min course", stage:"learn", consoles:["activation"], tags:["curriculum"], url:"#" },
+    { title:"LEGACY Build Campaigns: The essentials", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"21 min course", stage:"learn", consoles:["activation"], tags:["curriculum","legacy"], url:"#" },
+    { title:"LEGACY Verify Campaign Setup: The essentials", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"30 min course", stage:"learn", consoles:["activation"], tags:["curriculum","legacy"], url:"#" },
+    { title:"LEGACY Verify Campaign Setup: For users", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"44 min course", stage:"learn", consoles:["activation"], tags:["curriculum","legacy"], url:"#" },
+    { title:"Platform Data: The essentials", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"39 min course", stage:"learn", consoles:"all", tags:["curriculum","essentials"], url:"#" },
+    { title:"Upload Data: For users", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"17 min course", stage:"learn", consoles:"all", tags:["curriculum"], url:"#" },
+    { title:"Map Data: For users", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"35 min course", stage:"learn", consoles:"all", tags:["curriculum"], url:"#" },
+    { title:"Export Data: For users", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"25 min course", stage:"learn", consoles:"all", tags:["curriculum"], url:"#" },
+    { title:"View Reports: For users", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"44 min course", stage:"learn", consoles:"all", tags:["curriculum"], url:"#" },
+    { title:"Outcome Planner: The essentials", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"44 min course", stage:"learn", consoles:["outcome-planner"], tags:["curriculum","essentials"], url:"#" },
+    { title:"Outcome Planner: For users", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"42 min course", stage:"learn", consoles:["outcome-planner"], tags:["curriculum"], url:"#" },
+    { title:"Using the Outcome Tool", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"43 min course", stage:"learn", consoles:"all", tags:["curriculum"], url:"#" },
+    { title:"Client Central", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Curriculum", duration:"30 min course", stage:"learn", consoles:["client-central"], tags:["curriculum"], url:"#" },
+    { title:"The Omni Platform at Work: A Campaign Walkthrough", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Video", duration:"22 min video", stage:"learn", consoles:"all", tags:["video","webinar"], url:"#" },
+    { title:"Research Console Recorded Webinar", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Video", duration:"3 min video", stage:"learn", consoles:["research"], tags:["video","webinar"], url:"#" },
+    { title:"Audience Console Recorded Webinar", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Video", duration:"24 min video", stage:"learn", consoles:["audience"], tags:["video","webinar"], url:"#" },
+    { title:"AI Agent Coordinator Recorded Webinar", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Video", duration:"18 min video", stage:"learn", consoles:"all", tags:["video","webinar","ai-agent"], url:"#" },
+    { title:"Planning Agent New Releases", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Video", duration:"15 min video", stage:"learn", consoles:["planning"], tags:["video","webinar"], url:"#" },
+    { title:"Connections Recorded Webinar", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Video", duration:"9 min video", stage:"learn", consoles:"all", tags:["video","webinar","connections"], url:"#" },
+    { title:"Omni Live: What's New, What's Next", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Video", duration:"23 min video", stage:"learn", consoles:"all", tags:["video","webinar"], url:"#" },
+    { title:"Omni Demo", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Video", duration:"8 min video", stage:"onboard", consoles:"all", tags:["video","demo"], url:"#" },
+    { title:"Talking Points", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Document", duration:"11 pages · 20 min read", stage:"share", consoles:"all", tags:["document","marketing"], url:"#" },
+    { title:"Omni Overview", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Document", duration:"11 pages · 20 min read", stage:"onboard", consoles:"all", tags:["document","orientation"], url:"#" },
+    { title:"Omni FAQ", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Document", duration:"2 pages · 4 min read", stage:"learn", consoles:"all", tags:["document","faq"], url:"#" },
+    { title:"Sizzle Video", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Video", duration:"11 min video", stage:"share", consoles:"all", tags:["video","marketing"], url:"#" },
+    { title:"Events Calendar", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Other", stage:"learn", consoles:"all", tags:["events"], url:"#" },
+
+    // Case studies — one placeholder per console, for demo purposes.
+    { title:"Client Tool: Streamlining Multi-Market Delivery", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Case Study", duration:"6 pages · 11 min read", stage:"share", consoles:["client-central"], tags:["case-study"], url:"#" },
+    { title:"Research Tool: Faster Cultural Insights", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Case Study", duration:"5 pages · 9 min read", stage:"share", consoles:["research"], tags:["case-study"], url:"#" },
+    { title:"Audience Tool: Building Sharper Segments", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Case Study", duration:"6 pages · 10 min read", stage:"share", consoles:["audience"], tags:["case-study"], url:"#" },
+    { title:"Planning Tool: Smarter Budget Allocation", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Case Study", duration:"7 pages · 12 min read", stage:"share", consoles:["planning"], tags:["case-study"], url:"#" },
+    { title:"Investment Tool: Clearer Partner Visibility", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Case Study", duration:"5 pages · 9 min read", stage:"share", consoles:["investment"], tags:["case-study"], url:"#" },
+    { title:"Content Tool: Personalized Creative at Scale", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Case Study", duration:"6 pages · 11 min read", stage:"share", consoles:["content"], tags:["case-study"], url:"#" },
+    { title:"Production Tool: Faster Asset Turnaround", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Case Study", duration:"5 pages · 9 min read", stage:"share", consoles:["production"], tags:["case-study"], url:"#" },
+    { title:"Activation Tool: Simplified Cross-Channel Launch", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Case Study", duration:"6 pages · 10 min read", stage:"share", consoles:["activation"], tags:["case-study"], url:"#" },
+    { title:"Platform Data: AI-Ready Reporting", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Case Study", duration:"7 pages · 12 min read", stage:"share", consoles:"all", tags:["case-study"], url:"#" },
+    { title:"Outcome Tool: Sharper Spend Simulations", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Case Study", duration:"6 pages · 11 min read", stage:"share", consoles:["outcome-planner"], tags:["case-study"], url:"#" },
+    { title:"Outcome Tool: Custom Models in Weeks, Not Months", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Case Study", duration:"7 pages · 13 min read", stage:"share", consoles:"all", tags:["case-study"], url:"#" },
+    { title:"Platform-Wide: A Full Rollout", desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", type:"Case Study", duration:"8 pages · 14 min read", stage:"share", consoles:"all", tags:["case-study"], url:"#" },
+  ]
+};
+</script>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><span class="mark">OMNI<svg class="sparkle" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 1c0 6.5 1.5 9.5 9 10.5-7.5 1-9 4-9 10.5 0-6.5-1.5-9.5-9-10.5 7.5-1 9-4 9-10.5Z"/></svg></span> <span class="sub">Enablement Hub</span></div>
+    <div class="searchbox">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <label class="sr" for="q">Search the hub</label>
+      <input id="q" type="search" placeholder="Search guides, trainings, case studies…" autocomplete="off">
+      <span class="kbd">/</span>
+    </div>
+    <div class="headactions">
+      <button class="hbtn solid" id="startTour">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.6 2.6 0 1 1 3.4 2.5c-.6.2-.9.8-.9 1.4v.4"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+        Take a tour
+      </button>
+      <button class="hbtn solid" id="copyView">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M10 13.5a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.3 1.3"/><path d="M14 10.5a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.3-1.3"/></svg>
+        <span id="copyViewLabel">Copy link to this view</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="page-shell">
+<aside class="filter-sidebar" id="filterSidebar" aria-label="Active filters">
+  <div class="fs-head">
+    <span class="fs-title">Active Filters</span>
+    <button class="clear fs-clear-btn">Clear</button>
+  </div>
+  <span class="fs-count" id="fsCount"></span>
+  <div class="fs-body" id="fsBody"></div>
+  <div class="fs-matches" id="fsMatches"></div>
+</aside>
+
+<div class="side-motif" id="sideMotif" aria-hidden="true">
+  <div class="rays"></div>
+</div>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="hero-motif" aria-hidden="true">
+      <div class="rays"></div>
+    </div>
+    <h1>I want to use Omni. What do I do first?</h1>
+  </section>
+
+  <section class="rail-shell">
+    <div class="rail-head">
+      <h2 class="rail-title">Choose a place to start</h2>
+    </div>
+    <div class="rail" id="rail" role="group" aria-label="Onboarding journey stages"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow" style="margin-bottom:12px">Search by content type</div>
+    <div class="toolbar">
+      <div class="fgroup" id="typefilters" role="group" aria-label="Filter by format"></div>
+      <div class="eyebrow" style="margin:14px 0 12px">Tags</div>
+      <div class="fgroup" id="tagfilters" role="group" aria-label="Filter by topic"></div>
+    </div>
+  </section>
+
+  <section class="lenspanel">
+    <div class="eyebrow" style="margin-bottom:12px">Explore by console / tool</div>
+    <div class="consoles" id="consoles"></div>
+  </section>
+
+  <section id="results" class="results-shell">
+    <div class="resultbar">
+      <div class="active" id="count" aria-live="polite"></div>
+      <button class="clear" id="clear">Clear all filters</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+<section id="about" class="about-shell">
+<div class="eyebrow" style="margin-bottom:4px">About us</div>
+<h2 class="ctitle">Meet Enablement</h2>
+<p class="csub">Who we are, what we do, and the teams you'll work with as you learn Omni.</p>
+
+<div class="about-top">
+<div class="about-panel">
+<div class="eyebrow">Who we are</div>
+<h3>The team behind your Omni experience</h3>
+<p>Description of the Enablement team... who we are, what we do, and why we exist.</p>
+<p>Who do we support...</p>
+</div>
+<div class="about-panel">
+<div class="eyebrow">What Enablement does</div>
+<h3>Helping you get value from Omni, faster</h3>
+<ul>
+<li>Onboardings and trainings for new users]</li>
+<li>Guidance on using different consoles</li>
+<li>Resources, documentation, best practices</li>
+</ul>
+</div>
+</div>
+
+<h3 class="about-sub">Our roles</h3>
+<div class="role-grid">
+<div class="role-card" style="--ck:#4A90A4">
+<h4>Product Services</h4>
+<p>What does product services do...</p>
+<p class="role-for">Where does PS sit in the Omni journey...</p>
+</div>
+<div class="role-card" style="--ck:#7A4FA8">
+<h4>Technical Project Managers</h4>
+<p>What do TPMs do...</p>
+<p class="role-for">Where do TPMs sit in the Omni journey...</p>
+</div>
+<div class="role-card" style="--ck:#C4491E">
+<h4>Client Services</h4>
+<p>What does Client Services do...</p>
+<p class="role-for">Where does CS sit in the Omni journey...</p>
+</div>
+</div>
+</section>
+
+</main>
+</div>
+
+<div class="tour-scrim" id="tourScrim" aria-hidden="true">
+  <div class="tour-spot" id="tourSpot"></div>
+  <div class="tour-ring" id="tourRing"></div>
+</div>
+<div class="tour-pop" id="tourPop" role="dialog" aria-modal="true" aria-labelledby="tourTitle" style="display:none">
+  <button class="tour-skip" id="tourSkip">Skip tour</button>
+  <span class="tour-step" id="tourStepLabel"></span>
+  <h4 id="tourTitle"></h4>
+  <p id="tourBody"></p>
+  <span class="tour-try" id="tourTry" style="display:none">Try it — click around</span>
+  <div class="tour-nav">
+    <div class="tour-dots" id="tourDots"></div>
+    <div class="tour-btns">
+      <button id="tourBack">Back</button>
+      <button class="primary" id="tourNext">Next</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const S = { consoles:new Set(), stage:null, types:new Set(), tags:new Set(), q:"" };
+const el = id => document.getElementById(id);
+const byId = (arr,id) => arr.find(x => x.id === id);
+function track(event, detail){ console.log("[hub]", event, detail); }
+
+const allTags = ["academy","access","best-practices","community","data-sources","faq","essentials","permissions","support","webinar"];
+const consoleMatch = (field, id) => Array.isArray(field) && field.includes(id);
+const consoleMatchAny = (field, idsSet) => Array.isArray(field) && field.some(id => idsSet.has(id));
+const countFor = id => CONFIG.resources.filter(r => consoleMatch(r.consoles, id)).length;
+
+function matches(r){
+  if (S.consoles.size && !consoleMatchAny(r.consoles, S.consoles)) return false;
+  if (S.stage && r.stage !== S.stage) return false;
+  if (S.types.size && !S.types.has(r.type)) return false;
+  if (S.tags.size && !(r.tags || []).some(t => S.tags.has(t))) return false;
+  if (S.q) {
+    const hay = [r.title, r.type, ...(r.tags||[]),
+                 ...(r.consoles === "all" ? ["all consoles"] : r.consoles.map(c => byId(CONFIG.consoles,c).name))
+                ].join(" ").toLowerCase();
+    if (!S.q.toLowerCase().split(/\s+/).every(w => hay.includes(w))) return false;
+  }
+  return true;
+}
+
+function renderConsoles(){
+  el("consoles").innerHTML = CONFIG.consoles.map(c =>
+    `<button class="console" data-console="${c.id}" style="--ck:${c.color}" aria-pressed="${S.consoles.has(c.id)}">
+       <span class="cn">${c.name}</span>
+       <span class="cd">${c.desc}</span>
+       <span class="cc">${countFor(c.id)} resources</span>
+     </button>`).join("");
+}
+
+const escAttr = s => String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;");
+
+function renderFilterSidebar(anyFilterActive, hits, curStage){
+  const groups = [];
+  if (curStage) groups.push({ label:"Stage", chips:[curStage.name] });
+  if (S.types.size) groups.push({ label:"Content type", chips:[...S.types] });
+  if (S.tags.size) groups.push({ label:"Tags", chips:[...S.tags].map(t=>"#"+t) });
+  if (S.consoles.size) groups.push({ label:"Console / tool", chips:[...S.consoles].map(id=>byId(CONFIG.consoles,id).name) });
+  if (S.q) groups.push({ label:"Search", chips:['"'+S.q+'"'] });
+
+  const hitCount = hits.length;
+  el("fsCount").textContent = anyFilterActive ? `${hitCount} match${hitCount===1?"":"es"}` : "";
+
+  el("fsBody").innerHTML = groups.length
+    ? groups.map(g => `
+        <div class="fs-group">
+          <span class="fs-group-label">${g.label}</span>
+          <div class="fs-chips">${g.chips.map(c=>`<span class="fs-chip">${c}</span>`).join("")}</div>
+        </div>`).join("")
+    : `<p class="fs-empty">No filters applied yet. Pick a stage, type, tag, console, or search term to narrow the hub.</p>`;
+
+  if (anyFilterActive && hitCount){
+    const names = [...hits].map(r=>r.title).sort((a,b)=>a.localeCompare(b));
+    el("fsMatches").innerHTML = `
+      <div class="fs-matches-head">
+        <span class="fs-matches-label">Matches (${hitCount})</span>
+        <button class="fs-jump" id="fsJump">See matches
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 4v16M5 13l7 7 7-7"/></svg>
+        </button>
+      </div>
+      <div class="fs-match-list">
+        ${names.map(n => `<button class="fs-match-item" data-jumptitle="${escAttr(n)}">${n}</button>`).join("")}
+      </div>`;
+  } else {
+    el("fsMatches").innerHTML = "";
+  }
+}
+
+const _svg = b => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${b}</svg>`;
+const STAGE_ICONS = {
+  onboard: _svg('<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>'),
+  learn:   _svg('<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>'),
+  share:   _svg('<circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M10.8 7.2 6.2 15.8M13.2 7.2l4.6 8.6M7.5 18h9"/>'),
+  connect: _svg('<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'),
+  support: _svg('<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="m4.93 4.93 4.24 4.24M14.83 9.17l4.24-4.24M14.83 14.83l4.24 4.24M9.17 14.83l-4.24 4.24"/>')
+};
+
+function render(){
+  renderConsoles();
+
+  el("rail").innerHTML = CONFIG.journey.map((s) =>
+    `<button class="stage" data-stage="${s.id}" style="--ck:${s.color}" aria-pressed="${S.stage===s.id}">
+       <span class="ic" aria-hidden="true">${STAGE_ICONS[s.id]}</span>
+       <span class="nm">${s.name}</span>
+       <span class="ds">${s.desc}</span>
+     </button>`).join("");
+  const cur = byId(CONFIG.journey, S.stage);
+
+  el("typefilters").innerHTML = CONFIG.types.map(t =>
+    `<button class="chip" data-type="${t}" aria-pressed="${S.types.has(t)}">${t}</button>`).join("");
+  el("tagfilters").innerHTML = allTags.map(t =>
+    `<button class="chip" data-tag="${t}" aria-pressed="${S.tags.has(t)}">#${t}</button>`).join("");
+
+  const anyFilterActive = !!(S.consoles.size || S.stage || S.types.size || S.tags.size || S.q);
+  const hits = anyFilterActive ? CONFIG.resources.filter(matches) : [];
+  const lensLabel = S.consoles.size ? [...S.consoles].map(id => byId(CONFIG.consoles, id).name).join(", ") : null;
+
+  renderFilterSidebar(anyFilterActive, hits, cur);
+  el("results").classList.toggle("filtered", anyFilterActive);
+  el("count").innerHTML = anyFilterActive
+    ? `<span class="eyebrow">${hits.length} resource${hits.length===1?"":"s"}</span>` +
+      (lensLabel ? ` <span>· ${lensLabel}</span>` : "") + (cur ? ` <span>· ${cur.name}</span>` : "")
+    : `<span class="eyebrow">Search or pick a filter to see resources</span>`;
+
+  if (!anyFilterActive){
+    el("grid").innerHTML = `<div class="empty">
+        <h3>Start with a search or a filter</h3>
+        <p>Pick a stage, a content type, or a console above — or search by keyword — to see matching resources here.</p>
+      </div>`;
+    writeHash();
+    queueSideMotif();
+    return;
+  }
+
+  el("grid").innerHTML = hits.length ? hits.map(r => {
+    const cons = r.consoles === "all" ? CONFIG.consoles : r.consoles.map(c => byId(CONFIG.consoles, c));
+    const spine = r.consoles === "all" ? "var(--line)" : cons[0].color;
+    return `<div class="card" role="button" tabindex="0" aria-haspopup="dialog" style="--ck:${spine}" data-title="${r.title}" data-idx="${CONFIG.resources.indexOf(r)}">
+      <div class="type">
+        <div class="typeleft">
+          <span class="pill ${r.external?'ext':''}">${r.type}${r.external?' ↗':''}</span>
+          ${r.duration ? `<span class="duration">${r.duration}</span>` : ''}
+        </div>
+      </div>
+      <h3>${r.title}</h3>
+      <p>${r.desc}</p>
+      <div class="consolebadges">${
+        r.consoles === "all"
+          ? '<span class="cb" style="background:#8494A3">All consoles</span>'
+          : cons.map(c => `<span class="cb" style="background:${c.color}">${c.name.replace(" Console","")}</span>`).join("")
+      }</div>
+      <div class="tags">${(r.tags||[]).map(t=>`<span class="tag">${t}</span>`).join("")}</div>
+    </div>`;
+  }).join("") : `<div class="empty">
+      <h3>Nothing matches those filters yet</h3>
+      <p>Try removing a filter, or search a broader term. If this is a gap in the hub, tell us and we'll write it.</p>
+      <button class="btn-action" id="requestcontent">Request this content</button>
+    </div>`;
+
+  writeHash();
+  queueSideMotif();
+  if (typeof repaintTourSpot === "function") requestAnimationFrame(repaintTourSpot);
+}
+
+function writeHash(){
+  const p = new URLSearchParams();
+  if (S.consoles.size) p.set("console", [...S.consoles].join(","));
+  if (S.stage) p.set("stage", S.stage);
+  if (S.types.size) p.set("type", [...S.types].join(","));
+  if (S.tags.size) p.set("tag", [...S.tags].join(","));
+  if (S.q) p.set("q", S.q);
+  history.replaceState(null, "", "#" + p);
+}
+function readHash(){
+  const p = new URLSearchParams(location.hash.slice(1));
+  S.stage = p.get("stage"); S.q = p.get("q") || "";
+  (p.get("console")||"").split(",").filter(Boolean).forEach(id => S.consoles.add(id));
+  (p.get("type")||"").split(",").filter(Boolean).forEach(t => S.types.add(t));
+  (p.get("tag")||"").split(",").filter(Boolean).forEach(t => S.tags.add(t));
+  el("q").value = S.q;
+}
+const toggle = (set,val) => set.has(val) ? set.delete(val) : set.add(val);
+
+document.addEventListener("click", e => {
+  const card = e.target.closest(".card");
+  if (card) { openResourceModal(+card.dataset.idx, card); return; }
+  if (e.target.closest("[data-rm-close]")) { closeResourceModal(); return; }
+  const b = e.target.closest("button");
+  if (!b) return;
+  if (b.dataset.console) { toggle(S.consoles, b.dataset.console); track("console_select", [...S.consoles]); render(); }
+  if (b.dataset.stage)   { S.stage   = S.stage   === b.dataset.stage   ? null : b.dataset.stage;   track("stage_select", S.stage); render(); }
+  if (b.dataset.type)    { toggle(S.types, b.dataset.type); render(); }
+  if (b.dataset.tag)     { toggle(S.tags,  b.dataset.tag);  render(); }
+  if (b.classList.contains("clear")) { S.consoles.clear(); S.stage=null; S.types.clear(); S.tags.clear(); S.q=""; el("q").value=""; render(); }
+  if (b.id === "requestcontent") { track("content_request", S.q || "(filters only)"); alert("Wire this to your intake form or Teams channel."); }
+  if (b.id === "fsJump") { track("jump_to_matches"); el("results").scrollIntoView({ behavior:"smooth", block:"start" }); }
+  if (b.dataset.jumptitle) {
+    const target = document.querySelector(`.card[data-title="${CSS.escape(b.dataset.jumptitle)}"]`);
+    if (target) {
+      track("jump_to_card", b.dataset.jumptitle);
+      target.scrollIntoView({ behavior:"smooth", block:"center" });
+      target.classList.remove("jump-flash");
+      void target.offsetWidth;
+      target.classList.add("jump-flash");
+      target.addEventListener("animationend", () => target.classList.remove("jump-flash"), { once:true });
+    }
+  }
+});
+
+let t; el("q").addEventListener("input", e => {
+  clearTimeout(t);
+  t = setTimeout(() => { S.q = e.target.value.trim(); track("search", S.q); render(); }, 160);
+});
+document.addEventListener("keydown", e => {
+  if (rmOpen()) {
+    if (e.key === "Escape") { e.preventDefault(); closeResourceModal(); return; }
+    if (e.key === "Tab") {
+      const f = [...el("rmPanel").querySelectorAll("button,[href]")].filter(x => !x.disabled);
+      if (!f.length) return;
+      const first = f[0], last = f[f.length-1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+    return;
+  }
+  const c = document.activeElement && document.activeElement.classList.contains("card") ? document.activeElement : null;
+  if (c && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); openResourceModal(+c.dataset.idx, c); return; }
+  if (e.key === "/" && document.activeElement !== el("q")) { e.preventDefault(); el("q").focus(); }
+  if (e.key === "Escape" && document.activeElement === el("q")) el("q").blur();
+});
+
+/* ================= Resource detail modal ================= */
+const escHtml = s => String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+let rmLastFocus = null, rmCurrent = null;
+const rmOpen = () => el("rmBackdrop").classList.contains("on");
+
+function openResourceModal(idx, fromEl){
+  const r = CONFIG.resources[idx];
+  if (!r) return;
+  rmCurrent = r;
+  rmLastFocus = fromEl || document.activeElement;
+  track("resource_view", r.title);
+
+  const stage = byId(CONFIG.journey, r.stage);
+  const cons = r.consoles === "all" ? null : r.consoles.map(c => byId(CONFIG.consoles, c));
+
+  el("rmPanel").style.setProperty("--ck", cons ? cons[0].color : "var(--line)");
+  el("rmTop").innerHTML =
+    `<span class="pill ${r.external?'ext':''}">${escHtml(r.type)}${r.external?' ↗':''}</span>` +
+    (r.duration ? `<span class="duration">${escHtml(r.duration)}</span>` : "");
+  el("rmTitle").textContent = r.title;
+  el("rmDesc").textContent = r.desc;
+
+  const rows = [
+    ["Type", escHtml(r.type) + (r.external ? " · opens in a new tab" : "")],
+    r.duration ? ["Time", escHtml(r.duration)] : null,
+    ["Journey stage", stage ? `${escHtml(stage.name)}<span class="rm-sub">${escHtml(stage.desc)}</span>` : "—"],
+    ["Console / tool", `<div class="consolebadges">${
+        cons ? cons.map(c => `<span class="cb" style="background:${c.color}">${escHtml(c.name)}</span>`).join("")
+             : '<span class="cb" style="background:#8494A3">All consoles</span>'}</div>`],
+    ["Tags", (r.tags||[]).length ? `<div class="tags">${r.tags.map(t=>`<span class="tag">${escHtml(t)}</span>`).join("")}</div>` : "—"]
+  ].filter(Boolean);
+  el("rmMeta").innerHTML = rows.map(([k,v]) => `<div class="rm-row"><dt>${k}</dt><dd>${v}</dd></div>`).join("");
+
+  el("rmOpenLabel").textContent = r.external ? "Open ↗" : "Open";
+  el("rmBackdrop").classList.add("on");
+  document.body.classList.add("rm-lock");
+  el("rmPanel").scrollTop = 0;
+  el("rmOpen").focus();
+}
+
+function closeResourceModal(){
+  if (!rmOpen()) return;
+  el("rmBackdrop").classList.remove("on");
+  document.body.classList.remove("rm-lock");
+  if (rmLastFocus && document.body.contains(rmLastFocus)) rmLastFocus.focus();
+  rmCurrent = null;
+}
+
+// ▶ LINK HOOK: this runs when the user clicks "Open" in the detail card.
+//   Each resource's link lives in CONFIG.resources[].url (currently "#" placeholders).
+function openResource(r){
+  track("resource_open", r.title);
+  if (!r.url || r.url === "#") return;            // no link wired up yet
+  if (r.external) window.open(r.url, "_blank", "noopener");
+  else window.location.href = r.url;
+}
+document.addEventListener("click", e => {
+  if (e.target === el("rmBackdrop")) closeResourceModal();
+  if (e.target.closest("#rmOpen") && rmCurrent) openResource(rmCurrent);
+});
+
+readHash();
+render();
+
+function positionSideMotif(){
+  const motif = el("sideMotif");
+  const sidebar = el("filterSidebar");
+  const anchor = el("grid");
+  if (!motif || !sidebar || !anchor) return;
+  if (window.innerWidth <= 900) { motif.classList.remove("visible"); return; }
+
+  // Only show when filtering has actually produced at least one resource card.
+  const hasCard = !!anchor.querySelector(".card");
+  if (!hasCard) { motif.classList.remove("visible"); return; }
+
+  const anchorRect = anchor.getBoundingClientRect();
+  const sidebarRect = sidebar.getBoundingClientRect();
+  const naturalTop = anchorRect.top + 30;          // roughly aligns with the first row of cards
+  const lockedTop = sidebarRect.bottom + 20;        // just beneath the active-filters bubble
+  const finalTop = Math.max(lockedTop, naturalTop);
+
+  motif.style.top = finalTop + "px";
+  // Show once the grid has scrolled into a reasonable range.
+  motif.classList.toggle("visible", anchorRect.top < window.innerHeight + 400);
+}
+var sideMotifRaf;
+function queueSideMotif(){
+  cancelAnimationFrame(sideMotifRaf);
+  sideMotifRaf = requestAnimationFrame(positionSideMotif);
+}
+window.addEventListener("scroll", queueSideMotif, { passive:true });
+window.addEventListener("resize", queueSideMotif);
+queueSideMotif();
+
+/* ================= Guided tour ================= */
+const DEMO = { stage:"learn", type:"Video" };
+const setState = o => {
+  S.consoles.clear(); S.types.clear(); S.tags.clear();
+  S.stage = o.stage || null;
+  S.q = o.q || "";
+  (o.types||[]).forEach(t => S.types.add(t));
+  (o.tags||[]).forEach(t => S.tags.add(t));
+  (o.consoles||[]).forEach(c => S.consoles.add(c));
+  el("q").value = S.q;
+};
+
+const TOUR = [
+  {
+    sel: ".searchbox",
+    title: "Search the whole hub",
+    body: "Type a keyword and everything filters instantly — titles, formats, tags and consoles. Press / anywhere to jump into the search box.",
+    place: "below",
+    state: {},
+    try: true
+  },
+  {
+    sel: "#rail",
+    title: "Choose a place to start",
+    body: "Not sure where to begin? Pick the stage you're in. We've set it to Learn a tool — click a different one to see it swap.",
+    place: "below",
+    state: { stage:DEMO.stage },
+    try: true
+  },
+  {
+    sel: "#typefilters",
+    title: "Narrow by format",
+    body: "Only want to watch, not read? Layer on a content type. Filters stack — Learn a tool plus Video means both must be true. Add Document or Case Study and watch the count move.",
+    place: "below",
+    state: { stage:DEMO.stage, types:[DEMO.type] },
+    try: true
+  },
+  {
+    sel: "#tagfilters",
+    title: "Or by topic",
+    body: "Tags cut across everything — access, permissions, best practices, webinars. Click one to add it, click again to unstick it.",
+    place: "below",
+    state: { stage:DEMO.stage, types:[DEMO.type] },
+    try: true
+  },
+  {
+    sel: "#consoles",
+    title: "Explore by console",
+    body: "Each card shows how many resources exist for that tool. Pick one — or a few — to see only what's relevant to it.",
+    place: "above",
+    state: { stage:DEMO.stage, types:[DEMO.type] },
+    try: true
+  },
+  {
+    sel: "#filterSidebar",
+    title: "Your filters live here",
+    body: "This panel tracks everything you've picked, counts the matches, and lists them alphabetically. Click a title to jump to it, or Clear to start over.",
+    place: "rightof",
+    state: { stage:DEMO.stage, types:[DEMO.type] },
+    try: true
+  },
+  {
+    sel: "#grid .card",
+    title: "Scan, then click through",
+    body: "Each card gives you the format, how long it takes, which consoles it covers. Click it to see the full details and open the resource.",
+    place: "above",
+    state: { stage:DEMO.stage, types:[DEMO.type] }
+  },
+  {
+    sel: "#chatLauncher",
+    title: "Ask the bot anything",
+    body: "Can't find it by filtering? The enablement bot follows you down every page. Describe what you're trying to do in plain language and it'll point you to the right resource.",
+    place: "leftof",
+    radius: "50%",
+    state: { stage:DEMO.stage, types:[DEMO.type] },
+    try: true
+  },
+  {
+    sel: "#copyView",
+    title: "Share exactly what you're looking at",
+    body: "Every filter you set is saved into the page address. Copy it and whoever opens the link lands on this same filtered view — handy for onboarding a new teammate, answering a question in Teams, or bookmarking the set you keep coming back to.",
+    place: "below",
+    state: { stage:DEMO.stage, types:[DEMO.type] },
+    try: true
+  }
+];
+
+let tourIdx = -1, tourSaved = null;
+
+function tourEls(){
+  return { scrim: el("tourScrim"), spot: el("tourSpot"), ring: el("tourRing"), pop: el("tourPop") };
+}
+
+function startTour(){
+  tourSaved = { consoles:new Set(S.consoles), stage:S.stage, types:new Set(S.types), tags:new Set(S.tags), q:S.q };
+  track("tour_start");
+  const { scrim } = tourEls();
+  scrim.classList.add("on");
+  scrim.setAttribute("aria-hidden","false");
+  el("tourPop").style.display = "block";
+  tourIdx = -1;
+  tourGo(1);
+}
+
+function endTour(reason){
+  track("tour_end", { reason, step: tourIdx + 1 });
+  const { scrim, pop } = tourEls();
+  scrim.classList.remove("on");
+  scrim.setAttribute("aria-hidden","true");
+  pop.style.display = "none";
+  tourIdx = -1;
+  if (tourSaved){
+    S.consoles = tourSaved.consoles; S.stage = tourSaved.stage;
+    S.types = tourSaved.types; S.tags = tourSaved.tags; S.q = tourSaved.q;
+    el("q").value = S.q;
+    tourSaved = null;
+    render();
+  }
+  window.scrollTo({ top:0, behavior:"smooth" });
+}
+
+function tourGo(dir){
+  const next = tourIdx + dir;
+  if (next < 0) return;
+  if (next >= TOUR.length) { endTour("finished"); return; }
+  tourIdx = next;
+  const step = TOUR[tourIdx];
+  setState(step.state || {});   // reset to this step's known-good filters
+  render();
+  paintTour();
+}
+
+function paintTour(){
+  const step = TOUR[tourIdx];
+  const target = document.querySelector(step.sel);
+
+  el("tourStepLabel").textContent = `Step ${tourIdx+1} of ${TOUR.length}`;
+  el("tourTitle").textContent = step.title;
+  el("tourBody").textContent = step.body;
+  el("tourTry").style.display = step.try ? "inline-block" : "none";
+  el("tourDots").innerHTML = TOUR.map((_,i)=>`<span class="tour-dot ${i===tourIdx?"on":""}"></span>`).join("");
+  el("tourBack").style.visibility = tourIdx === 0 ? "hidden" : "visible";
+  el("tourNext").textContent = tourIdx === TOUR.length-1 ? "Finish" : "Next";
+
+  if (!target) { tourGo(1); return; }
+
+  const isFixed = getComputedStyle(target).position === "fixed";
+  if (!isFixed){
+    const r = target.getBoundingClientRect();
+    const needsScroll = r.top < 120 || r.bottom > window.innerHeight - 120;
+    if (needsScroll) target.scrollIntoView({ behavior:"smooth", block:"center" });
+  }
+  setTimeout(() => positionTour(target, step.place), 420);
+}
+
+/* Re-measure the spotlight without advancing the step (used after any re-render,
+   scroll or resize while the tour is open). */
+function repaintTourSpot(){
+  if (tourIdx < 0) return;
+  const step = TOUR[tourIdx];
+  const target = document.querySelector(step.sel);
+  const { spot, ring } = tourEls();
+  if (!target){ spot.style.opacity = "0"; ring.style.opacity = "0"; return; }
+  spot.style.opacity = "1"; ring.style.opacity = "1";
+  positionTour(target, step.place);
+}
+
+function positionTour(target, place){
+  const { spot, ring, pop } = tourEls();
+  const r = target.getBoundingClientRect();
+  const pad = 8;
+  const box = { top: r.top - pad, left: r.left - pad, w: r.width + pad*2, h: r.height + pad*2 };
+
+  [spot, ring].forEach(n => {
+    n.style.top = box.top + "px"; n.style.left = box.left + "px";
+    n.style.width = box.w + "px"; n.style.height = box.h + "px";
+    n.style.borderRadius = (tourIdx >= 0 && TOUR[tourIdx].radius) || "12px";
+  });
+
+  const pw = pop.offsetWidth || 296, ph = pop.offsetHeight || 190, gap = 16;
+  let top, left, cls = place;
+
+  if (place === "rightof" && box.left + box.w + gap + pw > window.innerWidth - 12) cls = "below";
+  if (place === "below" && box.top + box.h + gap + ph > window.innerHeight - 12) cls = "above";
+  if (place === "above" && box.top - gap - ph < 12) cls = "below";
+
+  if (cls === "below"){ top = box.top + box.h + gap; left = box.left; }
+  else if (cls === "above"){ top = box.top - gap - ph; left = box.left; }
+  else if (cls === "rightof"){ left = box.left + box.w + gap; top = box.top; }
+  else { left = box.left - gap - pw; top = box.top; }
+
+  left = Math.max(12, Math.min(left, window.innerWidth - pw - 12));
+  top  = Math.max(12, Math.min(top,  window.innerHeight - ph - 12));
+
+  pop.className = "tour-pop " + cls;
+  pop.style.top = top + "px";
+  pop.style.left = left + "px";
+
+  if (cls === "below" || cls === "above"){
+    const ax = Math.max(16, Math.min(box.left + box.w/2 - left - 7, pw - 30));
+    pop.style.setProperty("--ax", ax + "px");
+  } else {
+    const ay = Math.max(16, Math.min(box.top + box.h/2 - top - 7, ph - 30));
+    pop.style.setProperty("--ay", ay + "px");
+  }
+}
+
+el("startTour").addEventListener("click", startTour);
+el("tourNext").addEventListener("click", () => tourGo(1));
+el("tourBack").addEventListener("click", () => tourGo(-1));
+el("tourSkip").addEventListener("click", () => endTour("skipped"));
+window.addEventListener("resize", repaintTourSpot);
+window.addEventListener("scroll", () => { if (tourIdx >= 0) requestAnimationFrame(repaintTourSpot); }, { passive:true });
+
+/* ================= Copy link to this view ================= */
+let copyResetTimer = null;
+
+function flashCopyBtn(text, ok){
+  const btn = el("copyView"), label = el("copyViewLabel");
+  label.textContent = text;
+  btn.classList.toggle("done", !!ok);
+  clearTimeout(copyResetTimer);
+  copyResetTimer = setTimeout(() => {
+    label.textContent = "Copy link to this view";
+    btn.classList.remove("done");
+  }, 2200);
+}
+
+function legacyCopy(text){
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.setAttribute("readonly","");
+  ta.style.cssText = "position:fixed;top:-1000px;opacity:0";
+  document.body.appendChild(ta);
+  ta.select();
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch(e){ ok = false; }
+  document.body.removeChild(ta);
+  return ok;
+}
+
+el("copyView").addEventListener("click", async () => {
+  writeHash();                       // make sure the URL reflects current filters
+  const url = location.href;
+  const n = [...S.consoles, S.stage, ...S.types, ...S.tags, S.q].filter(Boolean).length;
+  track("copy_view_link", { filters:n });
+
+  let ok = false;
+  if (navigator.clipboard && window.isSecureContext){
+    try { await navigator.clipboard.writeText(url); ok = true; } catch(e){ ok = false; }
+  }
+  if (!ok) ok = legacyCopy(url);
+
+  if (ok) flashCopyBtn(n ? "Link copied" : "Link copied (no filters set)", true);
+  else { flashCopyBtn("Press Ctrl/Cmd + C", false); prompt("Copy this link:", url); }
+});
+</script>
+<div class="rm-backdrop" id="rmBackdrop">
+  <div class="rm-panel" id="rmPanel" role="dialog" aria-modal="true" aria-labelledby="rmTitle">
+    <button class="rm-close" data-rm-close aria-label="Close details">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="rm-top" id="rmTop"></div>
+    <h2 id="rmTitle"></h2>
+    <p class="rm-desc" id="rmDesc"></p>
+    <dl class="rm-meta" id="rmMeta"></dl>
+    <div class="rm-actions">
+      <button class="rm-btn" data-rm-close>Close</button>
+      <button class="rm-btn primary" id="rmOpen"><span id="rmOpenLabel">Open</span></button>
+    </div>
+  </div>
+</div>
+
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div class="chat-avatar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12a1 1 0 100-2 1 1 0 000 2z" fill="#fff" stroke="none"/><path d="M12 12a1 1 0 100-2 1 1 0 000 2z" fill="#fff" stroke="none"/><path d="M16 12a1 1 0 100-2 1 1 0 000 2z" fill="#fff" stroke="none"/><path d="M21 12c0 4.418-4.03 8-9 8-1.06 0-2.08-.16-3.02-.46L3 21l1.6-4.2C3.6 15.4 3 13.76 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+    </div>
+    <div class="chat-titles">
+      <strong>Omni Enablement Bot</strong>
+    </div>
+  </div>
+  <div class="chat-body">
+    <div class="chat-bubble bot">Hi! Ask me anything, I'll get you to the right place.</div>
+  </div>
+  <div class="chat-input-row">
+    <input type="text" id="chatInput" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendChatMessage()">
+    <button onclick="sendChatMessage()" aria-label="Send">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+    </button>
+  </div>
+</div>
+
+<button class="chat-launcher" id="chatLauncher" onclick="toggleChat()" aria-label="Open chat" aria-expanded="false">
+  <svg viewBox="0 0 24 24">
+    <path class="bubble-shape" d="M8.5 19H8a5 5 0 0 1-5-5V9.5a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5V13a5 5 0 0 1-5 5h-2l-3.5 3.2a.6.6 0 0 1-1-.45V19z"/>
+    <path class="sparkle-rot" fill="#fff" d="M12 6.2c0 3.4 0.8 4.9 4.6 5.6-3.8 0.7-4.6 2.2-4.6 5.6 0-3.4-0.8-4.9-4.6-5.6 3.8-0.7 4.6-2.2 4.6-5.6Z"/>
+  </svg>
+</button>
+
+</body>
+</html>
